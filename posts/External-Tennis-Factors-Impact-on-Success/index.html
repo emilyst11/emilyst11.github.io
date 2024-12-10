@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <p>The top ATP players represent the best of the best in men’s tennis at any given time. However, aside from their technique, practice methods and coaching, there are other factors that impact these players success and strengths as well.</p>
 <p>On of the best American tennis players was John Isner. Isner also sits comfortably as one of the best service opponents, and happens to be 6’11”. As I started to look into the other names and stats of top servers, it seemed like height may have something to do with it.</p>
-<p>From a logical perspective, being taller would help with parts of the typical serving mechanism, although what about kids serving? Height doesn’t make or break serving ability. I wanted to look into these questions with a bubble chart comparing height and service results. The reference lines display the ATP average for serve rating in the top-100 (277.4), and height (185.4 cm), while the numbers show the player’s standing in serve rating.</p>
+<p>From a logical perspective, being taller would help with parts of the typical serving mechanism, although what about kids serving? Height doesn’t make or break serving ability. I wanted to look into these questions with a bubble chart comparing height and service results. The reference lines display the ATP median for serve rating in the top-100 (277.4), and average height (185.4 cm), while the numbers show the player’s standing in serve rating.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -208,7 +208,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Serve <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/ServeLeaders.csv"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Surface <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/SurfaceATP.csv"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>Surface <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/SurfaceATP3.csv"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Grip <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/HandChoice.csv"</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>ServeFive <span class="ot">&lt;-</span> Serve <span class="sc">|&gt;</span> <span class="fu">filter</span>(No<span class="sc">&lt;=</span><span class="dv">5</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>ServeActive <span class="ot">&lt;-</span> Serve <span class="sc">|&gt;</span> <span class="fu">filter</span>(Status<span class="sc">==</span><span class="st">"Active"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -231,8 +231,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ServeActive, </span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> HeightCM, <span class="at">y =</span> ServeRate, <span class="at">size =</span> AvgAcePMat),</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">3</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"navy"</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> .<span class="dv">4</span>,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"green"</span>) <span class="sc">+</span> <span class="fu">geom_text</span>(</span>
 <span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ServeFive, <span class="fu">aes</span>(<span class="at">x =</span> HeightCM, </span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> ServeRate, <span class="at">label =</span> No)) <span class="sc">+</span> <span class="fu">geom_text_repel</span>(</span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ServeFive, </span>
@@ -245,7 +245,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">8</span>), <span class="at">name =</span> <span class="st">"Average Aces/Match"</span>) <span class="sc">+</span> <span class="fu">labs</span>(</span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Height (cm)"</span>, <span class="at">y =</span> <span class="st">"Serve Rating"</span>,</span>
 <span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"The ATP's best servers are tall and hit aces"</span>,</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The top-20 serve leaders by career show a connection between</span><span class="sc">\n</span><span class="st">height and service dominance. Active players shown in navy."</span>, <span class="at">caption =</span> <span class="st">"By: Emily Stoner | Source: ATP"</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"The top-20 serve leaders by career show a connection between</span><span class="sc">\n</span><span class="st">height and service dominance. Active players shown in green."</span>, <span class="at">caption =</span> <span class="st">"By: Emily Stoner | Source: ATP"</span></span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -266,7 +266,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>These top-20 servers are tall. All but three are above average in height, not to mention three of the top five are over 20 cm taller than the average. Serving objective is very involved with strategy and style, so the number of aces hit in a match isn’t entirely indicative of service dominance, however, it just so happens that of the top-20 in serve rating, over half (11) also appear in the top-20 for aces per match. You can be a great server without a high ace ability, but if you’re hitting aces, you’re probably a decent server. In conclusion, being tall means you’ll probably be better at serving, or at least most of the best servers are tall.</p>
-<p>But many tennis legends and greats weren’t in that top-20 list. After all, the serve doesn’t matter all that much if you can’t win a point. Although, we do have three former No.&nbsp;1’s in our top-20 servers list. What about Rafa Nadal? The King of Clay? He</p>
+<p>But many tennis legends and greats weren’t in that top-20 list. After all, the serve doesn’t matter all that much if you can’t win a point. Although, we do have three former No.&nbsp;1’s in our top-20 servers list. What about Rafa Nadal? The King of Clay? He was dubbed as such because of his dominance on the surface, winning 90.4% of his matches on clay, earning him 63 titles on clay.</p>
+<p>Surface success and strength is the next component to investigate. While, once again, learning how to succeed with this variable takes skill, surface is an inevitable part of pro tennis that ATP’s best has to work with. While some young stars like Carlos Alcaraz have already won grand slams on every surface, other professionals like Casper Ruud are vocal about their surface preferences (he’s played nearly 200 matches on both hard and clay courts, but a whopping 12 on grass). Instead of using ATP rankings to look into surface leaders, I’ll be using under pressure rating leaders as the group we take a closer look at. These players capitalize on break points and succeeding to win break points and the sets that matter most. It’s no coincidence these names are some of the best in the sport. The under pressure metric displays mindset, technique and dominance, which can all be impacted by surface. These guys can handle a challenge on any surface, but here’s how their wins chalk up, grouped by surface, arranged by under pressure rating.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>SurfaceBar <span class="ot">&lt;-</span> Surface <span class="sc">|&gt;</span> <span class="fu">select</span>(No, Player, UPRate, <span class="st">"Hard Court Wins"</span>, <span class="st">"Grass Court Wins"</span>, <span class="st">"Clay Court Wins"</span>, CarWLPct) <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">ends_with</span>(<span class="st">"Wins"</span>), </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Type"</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Wins"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  SurfaceBar, </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">reorder</span>(Player, <span class="sc">-</span>No), </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">weight =</span> Wins, </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> Type)) <span class="sc">+</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="fu">labs</span>(</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Player"</span>, <span class="at">y =</span> <span class="st">"Wins"</span>,</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Under pressure leaders persist on all surfaces,</span><span class="sc">\n</span><span class="st">but the most wins come on hard court"</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"These players lead the ATP in UPR, but they have a range of</span><span class="sc">\n</span><span class="st">success depending on surface."</span>, <span class="at">caption =</span> <span class="st">"By: Emily Stoner | Source: TennisAbstract.com and ATP"</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 
